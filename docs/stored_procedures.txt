@@ -1,0 +1,45 @@
+tgfserver.insert_into_general:
+	A procedure that inserts or replaces data in the tgfsever.general table.
+
+	Parameters:
+		new_data_root TEXT
+			The absolute path to where data is stored on the main data computer. Should be of the form '/top/subdir/...'. Replaces the current
+			data root if it already exists.
+
+tgfserver.insert_into_instruments:
+	A procedure that inserts or replaces general data in the tgfserver.instruments table.
+
+	Parameters:
+		new_instrument TEXT
+			The name of the new instrument to be inserted. If the instrument already exists, its records are updated according to the other parameter.
+		new_subdir TEXT
+			The subdirectory where the instrument's data is stored on the main data computer relative to the data root found in tgfserver.general. Should be
+			of the form 'top/subdir/...'. Is updated into the table if the given new_instrument already exists.
+
+tgfserver.insert_into_lm_formats:
+	A procedure that inserts data into the tgfsever.lm_formats table.
+	
+	Parameters:
+		new_format_name TEXT
+			The name of the new list mode data format to be inserted. Nothing happens if the format already exists.
+
+tgfserver.update_instrument_check_in:
+	A procedure that updates the check in information in the tgfserver.instruments table for the given instrument.
+
+	Parameters:
+		instrument TEXT
+			The name of the instrument that check in info will be updated for.
+		storage DOUBLE PRECISION
+			The fraction of storage space used on the instrument.
+		gps BOOLEAN
+			Whether the instrument is receiving gps signal.
+
+tgfserver.update_instrument_password:
+	A procedure that updates the password in the tgfserver.instruments table for the given instrument.
+
+	Parameters:
+		instrument TEXT
+			The name of the instrument. If this instrument doesn't exist, nothing happens.
+		hash TEXT
+			The hash of the password.
+

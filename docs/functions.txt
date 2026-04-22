@@ -1,0 +1,54 @@
+tgfserver.get_check_ins:
+	A function that returns check in information for all instruments.
+
+	Returns
+		TABLE
+			instrument_name TEXT
+				The name of the instrument.
+			last_check_in TIMESTAMPTZ
+				The timestamp of the last check in.
+			storage_fraction DOUBLE PRECISION
+				The fraction of storage space used on the instrument.
+			has_gps BOOLEAN
+				Whether the instrument is receiving gps signal.
+
+tgfserver.get_data_root:
+	A function that returns the absolute path to all TGF Group data on the main data computer.
+
+	Returns:
+		TEXT
+			The absolute path to data on the main data computer.
+
+tgfserver.get_instrument_id:
+	A function that returns the id for the given instrument.
+
+	Parameters:
+		name TEXT
+			The name of the instrument to return the id for.
+
+	Returns:
+		INTEGER
+			The given instrument's id.
+
+
+tgfserver.get_instrument_password:
+	A function that returns the password information for the given instrument.
+
+	Parameters:
+		name TEXT
+			The name of the instrument to return password information for.
+
+	Returns:
+		TEXT
+			The hash of the instrument's password.
+
+tgfserver.get_instrument_subdir:
+	A function that returns the data subdirectory for the given instrument.
+
+	Parameters:
+		name TEXT
+			The name of the instrument to return the data subdirectory for.
+
+	Returns:
+		TEXT
+			The data subdirectory for the given instrument, relative to the absolute data root in the tgfserver.general table.
