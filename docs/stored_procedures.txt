@@ -1,3 +1,48 @@
+tgfserver.insert_into_configurations:
+	A procedure that inserts or replaces data in the tgfsever.configurations table.
+
+	Parameters
+		new_instrument TEXT
+			The name of the instrument.
+		new_after_date TIMESTAMPTZ
+			The date after which the new configuration is valid.
+		new_scint_name TEXT
+			The name of the scintillator.
+		new_format_name TEXT
+			The name of the list mode format.
+		new_long_event_search BOOL
+			A bool indicating whether the configuraiton's scintillator should be considered in the long event search. If a combination of the above parameters
+			already exists in the table, this value will simply be updated.
+
+tgfserver.insert_into_deployments
+	A procedure that inserts or replaces data in the tgfsever.deployments table.
+
+	Parameters
+		new_instrument TEXT
+			The name of the instrument corresponding to the new deployment. If a combination of this name and new_start_date already exists in the table, the
+			other parameters will simply be updated into it.
+		start_date TIMESTAMPTZ
+			The date at which the new deployment begins (inclusive). If a combination of this and new_instrument already exists in the table, the other parameters
+			will simply be updated into it.
+		new_end_date TIMESTAMPTZ
+			The date at which the new deployment ends (inclusive).
+		new_location TEXT
+			The location of the new deployment.
+		new_tz_identifier TEXT
+			The IANA timezone of the new deployment.
+		new_weather_station TEXT
+			The callsign of the new deployment's nearest weather station.
+		new_sounding_station TEXT
+			The identifier of the new deployment's nearest sounding station.
+		new_latitude DOUBLE PRECISION
+			The approximate latitude coordinate of the new deployment (N).
+		new_longitude DOUBLE PRECISION
+			The approximate longitude coordinate of the new deployment (E, 0-360).
+		new_altitude DOUBLE PRECISION
+			The approximate altitude of the new deployment (km).
+		new_notes TEXT
+			Notes about the new deployment.
+
 tgfserver.insert_into_general:
 	A procedure that inserts or replaces data in the tgfsever.general table.
 
@@ -22,6 +67,17 @@ tgfserver.insert_into_lm_formats:
 	Parameters:
 		new_format_name TEXT
 			The name of the new list mode data format to be inserted. Nothing happens if the format already exists.
+
+tgfserver.insert_into_scintillators
+	A procedure that inserts or replaces data in the tgfserver.scintillators table.
+
+	Parameters
+		new_scintillator TEXT
+			The name of the scintillator to be inserted. If the scintillator already exists, its records are updated according to the other parameters.
+		new_priority INTEGER
+			The priority of the scintillator to be inserted. Is updated into the table if the given new_scintillator already exists.
+		new_color TEXT
+			The color of the scintillator to be inserted. Is updated into the table if the given new_scintillator already exists.
 
 tgfserver.update_instrument_check_in:
 	A procedure that updates the check in information in the tgfserver.instruments table for the given instrument.

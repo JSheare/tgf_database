@@ -1,3 +1,53 @@
+tgfserver.get_all_configs:
+	A function that returns all config info for the specified instrument.
+
+	Parameters
+		name TEXT
+			The name of the instrument to get the config info for.
+
+	Returns
+		TABLE
+			afte_date TEXT
+				The date after which the config info is valid.
+			scint_name TEXT
+				The name of the scintillator.
+			erc TEXT
+				The scintillator's eRC value.
+			format_name TEXT
+				The name of the list mode date file format used by the scintillator.
+			long_event_search BOOL
+				A flag indicating whether the scintillator should be considered in the long event search.
+
+tgfserver.get_all_deployments:
+	A function that returns all deployments for the specified instrument.
+	
+	Parameters
+		name TEXT
+			The name of the instrument to get all deployments for.
+
+	Returns
+		TABLE
+			start_date TIMESTAMPTZ
+				The date at which the deployment begins (inclusive).
+			end_date TIMESTAMPTZ
+				The date at which the deployment ends (inclusive).
+			location TEXT
+				The location of the deployment.
+			tz_identifier TEXT
+				The IANA timezone of the deployment.
+			weather_station TEXT
+				The callsign of the deployment's nearest weather station.
+			sounding_station TEXT
+				The identifier of the deployment's nearest sounding station.
+			latitude DOUBLE PRECISION
+				The approximate latitude coordinate of the deployment (N).
+			longitude DOUBLE PRECISION
+				The approximate longitude coordinate of the deployment (E, 0-360).
+			altitude DOUBLE PRECISION
+				The approximate altitude of the deployment (km).
+			notes TEXT
+				Notes about the deployment.
+
 tgfserver.get_check_ins:
 	A function that returns check in information for all instruments.
 
@@ -12,12 +62,98 @@ tgfserver.get_check_ins:
 			has_gps BOOLEAN
 				Whether the instrument is receiving gps signal.
 
+tgfserver.get_config:
+	A function that returns the config info for the specified instrument on the specified date.
+	
+	Parameters
+		name TEXT
+			The name of the instrument to get the config info for.
+		target_date TIMESTAMPTZ
+			The date to get the config info for.
+
+	Returns
+		TABLE
+			afte_date TEXT
+				The date after which the config info is valid.
+			scint_name TEXT
+				The name of the scintillator.
+			erc TEXT
+				The scintillator's eRC value.
+			format_name TEXT
+				The name of the list mode date file format used by the scintillator.
+			long_event_search BOOL
+				A flag indicating whether the scintillator should be considered in the long event search.
+
 tgfserver.get_data_root:
 	A function that returns the absolute path to all TGF Group data on the main data computer.
 
 	Returns:
 		TEXT
 			The absolute path to data on the main data computer.
+
+tgfserver.get_deployment:
+	A function that returns the deployment for the specified instrument on the specified date.
+
+	Parameters
+		name TEXT
+			The name of the instrument to get the deployment for.
+		target_date TIMESTAMPTZ
+			The date to get the deployment for.
+
+	Returns
+		TABLE
+			start_date TIMESTAMPTZ
+				The date at which the deployment begins (inclusive).
+			end_date TIMESTAMPTZ
+				The date at which the deployment ends (inclusive).
+			location TEXT
+				The location of the deployment.
+			tz_identifier TEXT
+				The IANA timezone of the deployment.
+			weather_station TEXT
+				The callsign of the deployment's nearest weather station.
+			sounding_station TEXT
+				The identifier of the deployment's nearest sounding station.
+			latitude DOUBLE PRECISION
+				The approximate latitude coordinate of the deployment (N).
+			longitude DOUBLE PRECISION
+				The approximate longitude coordinate of the deployment (E, 0-360).
+			altitude DOUBLE PRECISION
+				The approximate altitude of the deployment (km).
+			notes TEXT
+				Notes about the deployment.
+
+tgfserver.get_deployment_id:
+	A function that returns the deployment id for the given instrument and date.
+
+	Parameters
+		name TEXT
+			The name of the instrument to get the deployment id for.
+		target_date TIMESTAMPTZ
+			The date to get the deployment id for.
+
+	Returns
+		INTEGER
+			The id of the deployment corresponding to the given instrument and date.
+
+tgfserver.get_format_id:
+	A function that returns the id for the given list mode data format.
+
+	Parameters
+		name TEXT
+			The name of the format to return the id for.
+
+	Returns
+		INTEGER
+			The given list mode format's id.
+
+tgfserver.get_instruments:
+	A function that returns a list of all existent instruments.
+
+	Returns
+		TABLE
+			instrument_name TEXT
+				The name of the instrument.
 
 tgfserver.get_instrument_id:
 	A function that returns the id for the given instrument.
@@ -52,3 +188,26 @@ tgfserver.get_instrument_subdir:
 	Returns:
 		TEXT
 			The data subdirectory for the given instrument, relative to the absolute data root in the tgfserver.general table.
+
+tgfserver.get_scint_id:
+	A function that returns the id for the given scintillator.
+
+	Paramerets:
+		name TEXT
+			The name of the scintillator to return the id for.
+
+	Returns
+		INTEGER
+			The given scintillator's id.
+
+tgfserver.get_scintillators:
+	A function that returns the information for all existant scintillators.
+
+	Returns
+		TABLE
+			scint_name TEXT
+				The name of the scintillator.
+			scint_priority INTEGER
+				The priority of the scintillator.
+			plot_color TEXT
+				The preferred color of the scintillator on scatter plots.
