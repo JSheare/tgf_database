@@ -189,6 +189,22 @@ tgfserver.get_instrument_subdir:
 		TEXT
 			The data subdirectory for the given instrument, relative to the absolute data root in the tgfserver.general table.
 
+tgfserver.get_missing_weather_dates:
+	A function that returns the missing weather dates for the given instrument on the given range.
+
+	Parameters
+		instrument TEXT
+			The name of the instrument that missing weather dates will be listed for.
+		start_date TIMESTAMPTZ
+			The beginning of the range on which missing dates will be checked for.
+		end_date TIMESTAMPTZ
+			The end of the range on which missing dates will be checked for.
+
+	Returns
+		TABLE
+			missing_date TIMESTAMPTZ
+				The missing weather info date.
+
 tgfserver.get_scint_id:
 	A function that returns the id for the given scintillator.
 
@@ -211,3 +227,19 @@ tgfserver.get_scintillators:
 				The priority of the scintillator.
 			plot_color TEXT
 				The preferred color of the scintillator on scatter plots.
+
+tgfserver.get_weather:
+	A function that returns the weather information for the given instrument on the given date.
+
+	Parameters:
+		instrument TEXT
+			The name of the instrument to return weather info for.
+		target_date TIMESTAMPTZ
+			The date that weather info will be retrieved for.
+
+	Returns
+		TABLE
+			measurement_time TIMESTAMPTZ
+				The time that the weather measurement was taken at.
+			condition TEXT
+				The weather condition at the time of the measurement.

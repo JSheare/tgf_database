@@ -14,7 +14,7 @@ tgfserver.insert_into_configurations:
 			A bool indicating whether the configuraiton's scintillator should be considered in the long event search. If a combination of the above parameters
 			already exists in the table, this value will simply be updated.
 
-tgfserver.insert_into_deployments
+tgfserver.insert_into_deployments:
 	A procedure that inserts or replaces data in the tgfsever.deployments table.
 
 	Parameters
@@ -68,7 +68,7 @@ tgfserver.insert_into_lm_formats:
 		new_format_name TEXT
 			The name of the new list mode data format to be inserted. Nothing happens if the format already exists.
 
-tgfserver.insert_into_scintillators
+tgfserver.insert_into_scintillators:
 	A procedure that inserts or replaces data in the tgfserver.scintillators table.
 
 	Parameters
@@ -78,6 +78,17 @@ tgfserver.insert_into_scintillators
 			The priority of the scintillator to be inserted. Is updated into the table if the given new_scintillator already exists.
 		new_color TEXT
 			The color of the scintillator to be inserted. Is updated into the table if the given new_scintillator already exists.
+
+tgfserver.insert_into_weather:
+	A procedure that inserts data into the tgfserver.weather table.
+
+	Parameters
+		instrument TEXT
+			The name of the instrument that weather is to be inserted for.
+		new_measurement_time TIMESTAMPTZ
+			The time that the weather measurement was taken at.
+		new_condition TEXT
+			The weather condition at the time of the measurement.
 
 tgfserver.update_instrument_check_in:
 	A procedure that updates the check in information in the tgfserver.instruments table for the given instrument.
